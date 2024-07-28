@@ -679,6 +679,8 @@ public class SchemaToJavaTest {
         Roaster.format(PojoGenerator.generate(schema.getTitle(), schema, new Components()));
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
+    log.info("Expected: {}", expectedFile);
+    log.info("Generated: {}", generatedFile);
     assertEquals(
         expectedFile.replaceAll("[\\r\\n\\t\\s]", ""),
         generatedFile.replaceAll("[\\r\\n\\t\\s]", ""));
