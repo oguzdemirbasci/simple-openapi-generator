@@ -4,7 +4,7 @@
 This repository provides a straightforward and easy-to-use OpenAPI model generator for Java. The generated models leverage [Lombok](https://projectlombok.org/) and [Jackson](https://github.com/FasterXML/jackson) for enhanced functionality and simplicity. To maintain ease of use, configurable model generation is not supported. The tool supports **Java 17** and **OpenAPI 3.0** specifications.
 
 > [!IMPORTANT]
-> This project is still under development, can be cloned and tested with following. Any feedback or bug report would be apprecieted. A CLI tool and a gradle plugin is to be provided in the final version.
+> This project is still under development, can be cloned and tested with the following code example. Any feedback or bug report would be apprecieted. A CLI tool and a gradle plugin is to be provided in the final version.
 
 ```Java
 // Init Parser
