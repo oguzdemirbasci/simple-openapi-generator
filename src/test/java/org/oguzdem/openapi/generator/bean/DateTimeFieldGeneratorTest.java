@@ -1,4 +1,4 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package org.oguzdem.json;
+package org.oguzdem.openapi.generator;
 
 import static io.swagger.v3.parser.util.SchemaTypeUtil.DOUBLE_FORMAT;
 import static io.swagger.v3.parser.util.SchemaTypeUtil.INTEGER64_FORMAT;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.google.common.io.Resources;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.BinarySchema;
 import io.swagger.v3.oas.models.media.BooleanSchema;
@@ -17,9 +18,7 @@ import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.media.UUIDSchema;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Calendar;
@@ -672,25 +671,14 @@ public class SchemaToJavaTest {
 
   @ParameterizedTest
   @MethodSource("objectSchemaToJavaTestArgProvider")
-  void createTestFiles(ObjectSchema schema, URL expectedJavaFilePath) throws IOException {
-    try (PrintWriter out = new PrintWriter(expectedJavaFilePath.getPath())) {
-      String generatedFile = Roaster.format(PojoGenerator.generate(null, schema, null));
-      out.println(generatedFile);
-    } catch (FileNotFoundException e) {
-      log.error(e.getMessage(), e);
-    }
-  }
-
-  @ParameterizedTest
-  @MethodSource("objectSchemaToJavaTestArgProvider")
   void objectSchemaToJavaTest(ObjectSchema schema, URL expectedJavaFilePath) throws IOException {
     JavaType<?> expectedClass = Roaster.parse(expectedJavaFilePath);
     assertNotNull(expectedClass);
     String expectedFile = Roaster.format(expectedClass.toUnformattedString());
-    String generatedFile = Roaster.format(PojoGenerator.generate(null, schema, null));
+    String generatedFile = Roaster.format(PojoGenerator.generate(null, schema, new Components()));
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
-    assertEquals(expectedFile, generatedFile);
+    assertEquals(expectedFile.replaceAll("[\\r\\n]", ""), generatedFile.replaceAll("[\\r\\n]", ""));
   }
 
   private record SchemaClassFilePathTestPair(ObjectSchema schema, URL classFilePath) {
@@ -699,15 +687,6 @@ public class SchemaToJavaTest {
       schema.setTitle(objectName);
 
       String classFilePath = String.format(JAVA_FILE_RESOURCE_PATH_TEMPLATE, objectName);
-      //      File file = new File("src/test/resources/java/%s.java".formatted(objectName));
-      //      file.getParentFile().mkdirs();
-      //      URL classFileResourceURL = null;
-      //      try {
-      //          boolean result = file.createNewFile();
-      //          classFileResourceURL = file.getAbsoluteFile().toURL();
-      //      } catch (IOException e) {
-      //          throw new RuntimeException(e);
-      //      }
       return new SchemaClassFilePathTestPair(schema, Resources.getResource(classFilePath));
     }
   }

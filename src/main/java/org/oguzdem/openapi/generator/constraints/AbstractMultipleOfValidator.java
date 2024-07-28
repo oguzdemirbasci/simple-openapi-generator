@@ -1,4 +1,4 @@
-package org.oguzdem.json.constraints;
+package org.oguzdem.openapi.generator.constraints;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

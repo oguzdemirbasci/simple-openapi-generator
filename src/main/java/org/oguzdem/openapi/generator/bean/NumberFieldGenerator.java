@@ -1,6 +1,4 @@
-package org.oguzdem.json.bean;
-
-import static org.oguzdem.json.PojoGenerator.BEAN_VALIDATION_ANNOTATIONS_ENABLED;
+package org.oguzdem.openapi.generator.bean;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -12,7 +10,8 @@ import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.constraints.MultipleOf;
+import org.oguzdem.openapi.generator.Config;
+import org.oguzdem.openapi.generator.constraints.MultipleOf;
 
 /**
  * Abstract class for the number field generator. The field is a number object. The field is added
@@ -52,7 +51,7 @@ public abstract class NumberFieldGenerator extends FieldGenerator {
     PropertySource<JavaClassSource> propertySource = javaClassSource.getProperty(this.name);
     FieldSource<JavaClassSource> fieldSource = propertySource.getField();
 
-    if (BEAN_VALIDATION_ANNOTATIONS_ENABLED) {
+    if (Config.isBeanValidationEnabled()) {
       if (ObjectUtils.isNotEmpty(this.schema.getMinimum())) {
         AnnotationSource<JavaClassSource> minAnnotation = fieldSource.addAnnotation(Min.class);
         rootJavaClassSource.addImport(Min.class);

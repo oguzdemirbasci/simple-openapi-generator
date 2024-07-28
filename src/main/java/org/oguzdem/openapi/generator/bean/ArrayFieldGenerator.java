@@ -1,8 +1,7 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
-import static org.oguzdem.json.PojoGenerator.BEAN_VALIDATION_ANNOTATIONS_ENABLED;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isObject;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isRef;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isObject;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isRef;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -18,8 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.TypeGenerator;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.Config;
+import org.oguzdem.openapi.generator.TypeGenerator;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the array field. The field is a list or set of objects. The field is
@@ -89,7 +89,7 @@ public final class ArrayFieldGenerator extends FieldGenerator {
     addStandardAnnotations(propertySource);
     addConstructorParameter();
 
-    if (BEAN_VALIDATION_ANNOTATIONS_ENABLED) {
+    if (Config.isBeanValidationEnabled()) {
       if (ObjectUtils.isNotEmpty(this.schema.getMinItems())) {
         if (!fieldSource.hasAnnotation(Size.class)) {
           fieldSource.addAnnotation(Size.class);

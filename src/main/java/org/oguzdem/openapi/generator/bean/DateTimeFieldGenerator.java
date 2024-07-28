@@ -1,4 +1,4 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.models.Components;

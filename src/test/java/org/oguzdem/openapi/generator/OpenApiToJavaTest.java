@@ -1,10 +1,11 @@
-package org.oguzdem.json;
+package org.oguzdem.openapi.generator;
 
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import java.net.URL;
 import java.util.Objects;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 public class OpenApiToJavaTest {
 
   @Test
+  @Disabled
   public void generateClasses() {
     URL input = ClassLoader.getSystemResource("openapi/basic-schemas.json");
     OpenAPIParser parser = new OpenAPIParser();

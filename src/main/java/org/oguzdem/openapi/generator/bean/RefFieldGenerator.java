@@ -1,4 +1,4 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -6,8 +6,8 @@ import lombok.NonNull;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.TypeGenerator;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.TypeGenerator;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the ref field. The field is a reference to another schema. The field is added

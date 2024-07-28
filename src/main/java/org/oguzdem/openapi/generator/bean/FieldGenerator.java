@@ -1,9 +1,9 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
-import static org.oguzdem.json.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isEnum;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isObject;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isEnum;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Strings;
@@ -27,7 +27,7 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.JavaEnumSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Base class for field generators. Field generators are used to generate fields for the given

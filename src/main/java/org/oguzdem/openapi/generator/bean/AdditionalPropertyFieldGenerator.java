@@ -1,7 +1,6 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
-import static org.oguzdem.json.PojoGenerator.BEAN_VALIDATION_ANNOTATIONS_ENABLED;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isJavaObject;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isJavaObject;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -16,8 +15,9 @@ import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.TypeGenerator;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.Config;
+import org.oguzdem.openapi.generator.TypeGenerator;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the additional properties field. The additional properties field is a map of
@@ -104,7 +104,7 @@ public final class AdditionalPropertyFieldGenerator extends FieldGenerator {
     getter.addAnnotation(JsonIgnore.class);
     rootJavaClassSource.addImport(JsonIgnore.class);
 
-    if (BEAN_VALIDATION_ANNOTATIONS_ENABLED) {
+    if (Config.isBeanValidationEnabled()) {
       if (ObjectUtils.isNotEmpty(this.schema.getMinProperties())) {
         if (!fieldSource.hasAnnotation(Size.class)) {
           fieldSource.addAnnotation(Size.class);

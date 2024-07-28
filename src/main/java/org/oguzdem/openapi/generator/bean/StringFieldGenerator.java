@@ -1,7 +1,6 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
 import static io.swagger.v3.parser.util.SchemaTypeUtil.EMAIL_FORMAT;
-import static org.oguzdem.json.PojoGenerator.BEAN_VALIDATION_ANNOTATIONS_ENABLED;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -13,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
+import org.oguzdem.openapi.generator.Config;
 
 /**
  * Field generator for the string field. The field is a string object. The field is added to the
@@ -59,7 +59,7 @@ public final class StringFieldGenerator extends FieldGenerator {
     PropertySource<JavaClassSource> propertySource = javaClassSource.getProperty(this.name);
     FieldSource<JavaClassSource> fieldSource = propertySource.getField();
 
-    if (BEAN_VALIDATION_ANNOTATIONS_ENABLED) {
+    if (Config.isBeanValidationEnabled()) {
       if (StringUtils.isNotBlank(this.schema.getPattern())) {
         if (!fieldSource.hasAnnotation(Pattern.class)) {
           fieldSource.addAnnotation(Pattern.class);

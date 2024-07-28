@@ -1,8 +1,8 @@
-package org.oguzdem.json;
+package org.oguzdem.openapi.generator;
 
-import static org.oguzdem.json.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.fillInterfaceSourceBySchema;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillInterfaceSourceBySchema;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.models.Components;
@@ -25,7 +25,7 @@ import org.jboss.forge.roaster.model.source.JavaEnumSource;
 import org.jboss.forge.roaster.model.source.JavaInterfaceSource;
 import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Pojo generator class that generates Java classes from JSON schemas. It uses Roaster library to
@@ -39,8 +39,6 @@ import org.oguzdem.json.utils.NameUtils;
 @Slf4j
 public class PojoGenerator {
 
-  public static final boolean BEAN_VALIDATION_ANNOTATIONS_ENABLED = true;
-  private static final String DEFAULT_PACKAGE_NAME = "org.oguzdem.json.generated";
   private static final Map<String, JavaSource<?>> JAVA_SOURCE_MAP = new HashMap<>();
 
   /**
@@ -89,7 +87,7 @@ public class PojoGenerator {
     JAVA_SOURCE_MAP.forEach(
         (name, javaSource) -> {
           try (PrintWriter out =
-              new PrintWriter("src/main/java/org/oguzdem/json/generated/%s.java".formatted(name))) {
+              new PrintWriter(Config.getFullOutputPath() + "/%s.java".formatted(name))) {
             out.println(javaSource);
           } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
@@ -158,6 +156,6 @@ public class PojoGenerator {
     if (ObjectUtils.isEmpty(name)) {
       name = schema.getTitle();
     }
-    javaSource.setPackage(DEFAULT_PACKAGE_NAME).setName(name);
+    javaSource.setPackage(Config.getPackageName()).setName(name);
   }
 }

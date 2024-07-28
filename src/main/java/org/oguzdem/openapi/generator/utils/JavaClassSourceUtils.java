@@ -1,4 +1,4 @@
-package org.oguzdem.json.utils;
+package org.oguzdem.openapi.generator.utils;
 
 import static io.swagger.v3.parser.util.SchemaTypeUtil.OBJECT_TYPE;
 import static io.swagger.v3.parser.util.SchemaTypeUtil.STRING_TYPE;
@@ -26,9 +26,9 @@ import org.jboss.forge.roaster.model.source.JavaInterfaceSource;
 import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.PojoGenerator;
-import org.oguzdem.json.TypeGenerator;
-import org.oguzdem.json.bean.FieldGeneratorFactory;
+import org.oguzdem.openapi.generator.PojoGenerator;
+import org.oguzdem.openapi.generator.TypeGenerator;
+import org.oguzdem.openapi.generator.bean.FieldGeneratorFactory;
 
 /**
  * Utility class for java class source operations.

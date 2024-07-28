@@ -1,19 +1,84 @@
+import com.github.spotbugs.snom.Confidence
+
 plugins {
-    id 'java'
+	id 'java'
+	id 'pmd'
+	id 'checkstyle'
+	alias libs.plugins.spotbugs apply true
+	alias libs.plugins.spotless apply true
 }
 
 group = 'org.oguzdem.json'
 version = '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+	implementation libs.lombok
+	annotationProcessor libs.lombok
+
+	implementation libs.google.auto.service
+	implementation libs.apache.commons.lang3
+	implementation libs.google.guava
+	implementation libs.jackson.core
+	implementation libs.jackson.databind
+	implementation libs.jackson.datatype.jsr310
+	implementation libs.jackson.annotations
+	implementation libs.logback.classic
+	implementation libs.swagger.parser
+	implementation libs.forge.roaster.api
+	implementation libs.hibernate.validator
+	implementation libs.expressly
+	implementation libs.picocli
+	runtimeOnly libs.forge.roaster.jdt
+
+	testImplementation libs.junit.jupiter.api
+	testImplementation libs.junit.jupiter.params
+	testImplementation libs.mockito.core
+	testImplementation libs.mockito.junit.jupiter
+
+	testRuntimeOnly libs.junit.jupiter.engine
+	testCompileOnly libs.lombok
+	testAnnotationProcessor libs.lombok
 }
 
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
+}
+
+pmd {
+	toolVersion = "7.3.0"
+	ruleSetFiles = files("${rootDir}/config/pmd/pmd.xml")
+	consoleOutput = true
+}
+
+checkstyle {
+	toolVersion = '10.17.0'
+	maxWarnings = 0
+	configFile file("${rootDir}/config/checkstyle/google_checks.xml")
+}
+
+spotbugs {
+	includeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-include.xml"))
+	excludeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-exclude.xml"))
+	reportLevel = Confidence.valueOf('DEFAULT')
+	showProgress = true
+}
+
+spotless {
+	format 'misc', {
+		target '*.gradle', '.gitattributes', '.gitignore'
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+
+	java {
+		importOrder()
+		removeUnusedImports()
+		googleJavaFormat()
+		formatAnnotations()
+	}
 }

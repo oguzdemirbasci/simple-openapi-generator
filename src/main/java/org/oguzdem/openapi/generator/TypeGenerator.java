@@ -1,13 +1,13 @@
-package org.oguzdem.json;
+package org.oguzdem.openapi.generator;
 
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isAllOf;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isAnyOf;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isArray;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isEnum;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isJavaObject;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isObject;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isOneOf;
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isRef;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isAllOf;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isAnyOf;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isArray;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isEnum;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isJavaObject;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isObject;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isOneOf;
+import static org.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isRef;
 
 import com.google.common.collect.ImmutableList;
 import io.swagger.v3.oas.models.Components;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Type generator class that generates Java types from JSON schemas.

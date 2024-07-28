@@ -1,4 +1,4 @@
-package org.oguzdem.json.bean;
+package org.oguzdem.openapi.generator.bean;
 
 import static io.swagger.v3.parser.util.SchemaTypeUtil.BINARY_FORMAT;
 import static io.swagger.v3.parser.util.SchemaTypeUtil.BOOLEAN_TYPE;

@@ -1,4 +1,4 @@
-package org.oguzdem.json.utils;
+package org.oguzdem.openapi.generator.utils;
 
 import com.google.common.base.CaseFormat;
 import java.util.ArrayList;

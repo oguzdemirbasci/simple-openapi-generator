@@ -1,6 +1,4 @@
-package org.oguzdem.json.bean;
-
-import static org.oguzdem.json.utils.JavaClassSourceUtils.isJavaObject;
+package org.oguzdem.openapi.generator.bean;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -8,10 +6,14 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import org.oguzdem.json.TypeGenerator;
-import org.oguzdem.json.utils.NameUtils;
+import org.oguzdem.openapi.generator.TypeGenerator;
+import org.oguzdem.openapi.generator.utils.JavaClassSourceUtils;
+import org.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
+ * Field generator for the object field. The field is an object. The field is added to the
+ * constructor if it is not already added.
+ *
  * @author Oguz Demirbasci
  */
 public final class ObjectFieldGenerator extends FieldGenerator {
@@ -38,7 +40,7 @@ public final class ObjectFieldGenerator extends FieldGenerator {
   @Override
   public PropertySource<JavaClassSource> generateField() {
     String objectType;
-    if (isJavaObject(schema)) {
+    if (JavaClassSourceUtils.isJavaObject(schema)) {
       objectType = "Object";
     } else if (ObjectUtils.isEmpty(schema.get$ref())) {
       objectType = generateInnerType(name, schema);
