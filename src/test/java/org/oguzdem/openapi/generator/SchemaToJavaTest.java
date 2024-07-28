@@ -675,7 +675,8 @@ public class SchemaToJavaTest {
     JavaType<?> expectedClass = Roaster.parse(expectedJavaFilePath);
     assertNotNull(expectedClass);
     String expectedFile = Roaster.format(expectedClass.toUnformattedString());
-    String generatedFile = Roaster.format(PojoGenerator.generate(null, schema, new Components()));
+    String generatedFile =
+        Roaster.format(PojoGenerator.generate(schema.getTitle(), schema, new Components()));
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
     assertEquals(
