@@ -24,6 +24,6 @@ public class DefaultDates {
 	@Builder
 	public DefaultDates(Date simpleDate, Date defaultDate) throws ParseException {
 		this.simpleDate = simpleDate;
-		this.defaultDate = Objects.isNull(defaultDate) ? FORMAT.parse("2024-08-26") : defaultDate;
+		this.defaultDate = Objects.isNull(defaultDate) ? FORMAT.parse("2024-08-27") : defaultDate;
 	}
 }

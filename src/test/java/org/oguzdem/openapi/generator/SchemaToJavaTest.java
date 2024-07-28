@@ -21,8 +21,10 @@ import io.swagger.v3.oas.models.media.UUIDSchema;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.stream.Stream;
 import lombok.NonNull;
@@ -465,11 +467,11 @@ public class SchemaToJavaTest {
   @BeforeAll
   public static void setUpDefaultDatesSchema() {
     DEFAULT_DATE_SCHEMA.schema().addProperty("simpleDate", new DateSchema());
+    GregorianCalendar calendar = new GregorianCalendar(2024, Calendar.AUGUST, 27);
+    calendar.setTimeZone(TimeZone.getTimeZone(ZoneId.of("UTC")));
     DEFAULT_DATE_SCHEMA
         .schema()
-        .addProperty(
-            "defaultDate",
-            new DateSchema()._default(new GregorianCalendar(2024, Calendar.AUGUST, 27).getTime()));
+        .addProperty("defaultDate", new DateSchema()._default(calendar.getTime()));
   }
 
   @BeforeAll
@@ -480,12 +482,11 @@ public class SchemaToJavaTest {
   @BeforeAll
   public static void setUpDefaultDateTimesSchema() {
     DEFAULT_DATE_TIME_SCHEMA.schema().addProperty("simpleDateTime", new DateTimeSchema());
+    GregorianCalendar calendar = new GregorianCalendar(2024, Calendar.AUGUST, 27, 20, 0, 0);
+    calendar.setTimeZone(TimeZone.getTimeZone(ZoneId.of("UTC")));
     DEFAULT_DATE_TIME_SCHEMA
         .schema()
-        .addProperty(
-            "defaultDateTime",
-            new DateTimeSchema()
-                ._default(new GregorianCalendar(2024, Calendar.AUGUST, 27, 20, 0, 0).getTime()));
+        .addProperty("defaultDateTime", new DateTimeSchema()._default(calendar.getTime()));
   }
 
   @BeforeAll
@@ -679,8 +680,6 @@ public class SchemaToJavaTest {
         Roaster.format(PojoGenerator.generate(schema.getTitle(), schema, new Components()));
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
-    log.info("Expected: {}", expectedFile);
-    log.info("Generated: {}", generatedFile);
     assertEquals(
         expectedFile.replaceAll("[\\r\\n\\t\\s]", ""),
         generatedFile.replaceAll("[\\r\\n\\t\\s]", ""));

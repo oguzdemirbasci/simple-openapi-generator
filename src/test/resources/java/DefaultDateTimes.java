@@ -22,7 +22,7 @@ public class DefaultDateTimes {
 	public DefaultDateTimes(OffsetDateTime simpleDateTime, OffsetDateTime defaultDateTime) {
 		this.simpleDateTime = simpleDateTime;
 		this.defaultDateTime = Objects.isNull(defaultDateTime)
-				? OffsetDateTime.parse("2024-08-27T19:00Z")
+				? OffsetDateTime.parse("2024-08-27T20:00Z")
 				: defaultDateTime;
 	}
 }
