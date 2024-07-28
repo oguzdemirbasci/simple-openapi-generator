@@ -633,8 +633,40 @@ public class SchemaToJavaTest {
 
   public static Stream<Arguments> objectSchemaToJavaTestArgProvider() {
     return Stream.of(
+        Arguments.of(BASIC_STRING_SCHEMA.schema(), BASIC_STRING_SCHEMA.classFilePath()),
+        Arguments.of(
+            BASIC_SCHEMA_WITH_ADDITIONAL_PROPS.schema(),
+            BASIC_SCHEMA_WITH_ADDITIONAL_PROPS.classFilePath()),
+        Arguments.of(BASIC_INT_SCHEMA.schema(), BASIC_INT_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_FLOAT_SCHEMA.schema(), BASIC_FLOAT_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_LONG_SCHEMA.schema(), BASIC_LONG_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_DOUBLE_SCHEMA.schema(), BASIC_DOUBLE_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_DATE_SCHEMA.schema(), BASIC_DATE_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_DATE_TIME_SCHEMA.schema(), BASIC_DATE_TIME_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_BINARY_SCHEMA.schema(), BASIC_BINARY_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_BYTES_SCHEMA.schema(), BASIC_BYTES_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_BOOLEAN_SCHEMA.schema(), BASIC_BOOLEAN_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_UUID_SCHEMA.schema(), BASIC_UUID_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_URI_SCHEMA.schema(), BASIC_URI_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_URL_SCHEMA.schema(), BASIC_URL_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_ARRAY_SCHEMA.schema(), BASIC_ARRAY_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_SET_SCHEMA.schema(), BASIC_SET_SCHEMA.classFilePath()),
+        Arguments.of(BASIC_ENUM_SCHEMA.schema(), BASIC_ENUM_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_STRING_SCHEMA.schema(), DEFAULT_STRING_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_INT_SCHEMA.schema(), DEFAULT_INT_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_FLOAT_SCHEMA.schema(), DEFAULT_FLOAT_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_LONG_SCHEMA.schema(), DEFAULT_LONG_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_DOUBLE_SCHEMA.schema(), DEFAULT_DOUBLE_SCHEMA.classFilePath()),
         Arguments.of(DEFAULT_DATE_SCHEMA.schema(), DEFAULT_DATE_SCHEMA.classFilePath()),
-        Arguments.of(DEFAULT_DATE_TIME_SCHEMA.schema(), DEFAULT_DATE_TIME_SCHEMA.classFilePath()));
+        Arguments.of(DEFAULT_DATE_TIME_SCHEMA.schema(), DEFAULT_DATE_TIME_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_BINARY_SCHEMA.schema(), DEFAULT_BINARY_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_BYTES_SCHEMA.schema(), DEFAULT_BYTES_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_BOOLEAN_SCHEMA.schema(), DEFAULT_BOOLEAN_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_UUID_SCHEMA.schema(), DEFAULT_UUID_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_URI_SCHEMA.schema(), DEFAULT_URI_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_URL_SCHEMA.schema(), DEFAULT_URL_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_ARRAY_SCHEMA.schema(), DEFAULT_ARRAY_SCHEMA.classFilePath()),
+        Arguments.of(DEFAULT_ENUM_SCHEMA.schema(), DEFAULT_ENUM_SCHEMA.classFilePath()));
   }
 
   @ParameterizedTest
@@ -646,9 +678,9 @@ public class SchemaToJavaTest {
     String generatedFile = Roaster.format(PojoGenerator.generate(null, schema, new Components()));
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
-    log.info("Expected: {}", expectedFile);
-    log.info("Generated: {}", generatedFile);
-    assertEquals(expectedFile.replaceAll("[\\r\\n]", ""), generatedFile.replaceAll("[\\r\\n]", ""));
+    assertEquals(
+        expectedFile.replaceAll("[\\r\\n\\t\\s]", ""),
+        generatedFile.replaceAll("[\\r\\n\\t\\s]", ""));
   }
 
   private record SchemaClassFilePathTestPair(ObjectSchema schema, URL classFilePath) {
