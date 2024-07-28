@@ -1,0 +1,105 @@
+<FindBugsFilter>
+
+    <!-- This first four-space-indented block copied from Palantir's Baseline config. -->
+    <!-- https://github.com/palantir/gradle-baseline/blob/develop/gradle-baseline-java-config/resources/findbugs/excludeFilter.xml -->
+    <!-- Ignore the following bug patterns in test code -->
+    <!-- (i.e., classes ending in 'Test' or 'Tests', and inner classes of same) -->
+    <Match>
+        <Class name="~.*\.*Tests?(\$.*)?" />
+        <Or>
+            <Bug pattern="NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/> <!-- common in tests to have non-final variables instantiated in @Before methods, which FindBugs can't detect -->
+            <Bug pattern="NP_NULL_ON_SOME_PATH"/> <!-- if a null is dereferenced, test will fail anyway. Plus assertNotNull() is often a bad pattern. -->
+            <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/> <!-- if a null is dereferenced, test will fail anyway. Plus assertNotNull() is often a bad pattern. -->
+            <Bug pattern="NP_UNWRITTEN_FIELD"/> <!-- if a null is dereferenced, test will fail anyway. Plus assertNotNull() is often a bad pattern. -->
+            <Bug pattern="RV_RETURN_VALUE_IGNORED_INFERRED"/> <!-- common in tests to call a method [that has a return value] to deliberately cause an exception, then test that exception -->
+            <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/> <!-- ditto above -->
+            <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/> <!-- @Rule ivars can be public and unused -->
+        </Or>
+    </Match>
+
+  <!-- Most BC exclusions will be gradually phased out -->
+  <Match>
+    <Bug pattern="BC_UNCONFIRMED_CAST" />
+  </Match>
+  <Match>
+    <Bug pattern="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE" />
+  </Match>
+
+  <!-- Most DM exclusions will be gradually phased out -->
+  <Match>
+    <Bug pattern="DM_CONVERT_CASE" />
+  </Match>
+  <Match>
+    <Bug pattern="DM_DEFAULT_ENCODING" />
+  </Match>
+  <Match>
+    <Bug pattern="DM_EXIT" />
+  </Match>
+  <Match>
+    <Bug pattern="DM_GC" />
+  </Match>
+
+  <!-- Most EQ exclusions will be gradually phased out -->
+  <Match>
+    <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS" />
+  </Match>
+  <Match>
+    <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
+  </Match>
+
+  <!-- Most NP exclusions will be gradually phased out -->
+  <Match>
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION" />
+    <Method name="equals" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_NULL_ON_SOME_PATH" />
+    <Class name=".*Test" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+    <Class name=".*Test" />
+  </Match>
+  <Match>
+    <Class name=".*Test" />
+    <Bug pattern="NP_NULL_PARAM_DEREF" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_NULL_PARAM_DEREF_NONVIRTUAL" />
+  </Match>
+  <Match>
+    <Class name=".*Test" />
+    <Bug pattern="NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS" />
+  </Match>
+  <Match>
+    <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
+  </Match>
+
+  <!-- Most Nm exclusions will be gradually phased out -->
+  <Match>
+    <Bug pattern="NM_CLASS_NOT_EXCEPTION" />
+  </Match>
+  <Match>
+    <Bug pattern="NM_CONFUSING" />
+  </Match>
+  <Match>
+    <Bug pattern="NM_FIELD_NAMING_CONVENTION" />
+  </Match>
+
+  <!-- generally low value with hundreds of violations -->
+  <Match>
+    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
+  </Match>
+
+  <!-- requires %n instead of \n in String.format(), not helpful -->
+  <Match>
+    <Bug pattern="VA_FORMAT_STRING_USES_NEWLINE" />
+  </Match>
+
+</FindBugsFilter>

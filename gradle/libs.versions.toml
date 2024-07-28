@@ -1,0 +1,33 @@
+[versions]
+google-auto-service = "1.1.1"
+google-guava = "33.2.1-jre"
+apache-commons-lang3 = "3.15.0"
+lombok = "1.18.34"
+jackson = "2.17.2"
+logback = "1.5.6"
+junit = "5.10.3"
+mockito = "5.12.0"
+spotbugs-plugin = "6.0.19"
+spotless-plugin = "6.25.0"
+
+[libraries]
+google-auto-service = { group = "com.google.auto.service", name = "auto-service", version.ref = "google-auto-service" }
+google-guava = { group = "com.google.guava", name = "guava", version.ref = "google-guava" }
+apache-commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apache-commons-lang3" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
+jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+jackson-datatype-jsr310 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version.ref = "jackson" }
+logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+# Test Libraries
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
+mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+
+[plugins]
+spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
