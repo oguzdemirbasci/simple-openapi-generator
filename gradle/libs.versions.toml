@@ -13,7 +13,7 @@ picocli = "4.7.6"
 junit = "5.10.3"
 junit-platform-launcher = "1.10.3"
 mockito = "5.12.0"
-spotbugs-plugin = "6.0.19"
+spotbugs-plugin = "6.0.20"
 spotless-plugin = "6.25.0"
 
 [libraries]
