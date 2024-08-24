@@ -133,6 +133,7 @@ jreleaser {
 		license = 'Apache-2.0'
 		inceptionYear = '2024'
 		copyright = "Oguz Demirbasci"
+		description = 'Simple Openapi Generator'
 	}
     signing {
         active = 'ALWAYS'
