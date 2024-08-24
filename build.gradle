@@ -87,67 +87,47 @@ spotless {
 }
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.acme'
-            artifactId = 'simple-openapi-generator'
-
-            from components.java
-
-            pom {
-                name = 'simple-openapi-generator'
-                description = 'Simple Openapi Generator'
-                url = 'https://github.com/oguzdemirbasci/simple-openapi-generator'
-                inceptionYear = '2024'
-                licenses {
-                    license {
-                        name = 'Apache-2.0'
-                        url = 'https://spdx.org/licenses/Apache-2.0.html'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'oguzdemirbasci'
-                        name = 'Oguz Demirbasci'
-                    }
-                }
-                scm {
-                    connection = 'scm:git://github.com/oguzdemirbasci/simple-openapi-generator.git'
-                    developerConnection = 'scm:git:ssh://github.com/oguzdemirbasci/simple-openapi-generator.git'
-                    url = 'https://github.com/oguzdemirbasci/simple-openapi-generator'
-                }
-            }
-        }
-    }
-
     repositories {
         maven {
-            url = layout.buildDirectory.dir('staging-deploy')
+            name = "Github"
+            url = uri("https://maven.pkg.github.com/oguzdemirbasci/simple-openapi-generator")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
-}
-
-jreleaser {
-	project {
-		authors = ['Oguz Demirbasci']
-		license = 'Apache-2.0'
-		inceptionYear = '2024'
-		copyright = "Oguz Demirbasci"
-		description = 'Simple Openapi Generator'
-	}
-    signing {
-        active = 'ALWAYS'
-        armored = true
-    }
-    deploy {
-        maven {
-            mavenCentral {
-                sonatype {
-                    active = 'ALWAYS'
-                    url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('target/staging-deploy')
-                }
+    publications {
+        register("jar", MavenPublication) {
+            from(components["java"])
+            pom {
+                url.set("https://github.com/oguzdemirbasci/simple-openapi-generator.git")
             }
         }
     }
 }
+
+//jreleaser {
+//	project {
+//		authors = ['Oguz Demirbasci']
+//		license = 'Apache-2.0'
+//		inceptionYear = '2024'
+//		copyright = "Oguz Demirbasci"
+//		description = 'Simple Openapi Generator'
+//	}
+//    signing {
+//        active = 'ALWAYS'
+//        armored = true
+//    }
+//    deploy {
+//        maven {
+//            mavenCentral {
+//                sonatype {
+//                    active = 'ALWAYS'
+//                    url = 'https://central.sonatype.com/api/v1/publisher'
+//                    stagingRepository('target/staging-deploy')
+//                }
+//            }
+//        }
+//    }
+//}
