@@ -89,7 +89,7 @@ spotless {
 publishing {
     repositories {
         maven {
-            name = "Github"
+            name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/oguzdemirbasci/simple-openapi-generator")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
@@ -97,14 +97,14 @@ publishing {
             }
         }
     }
-    publications {
-        register("jar", MavenPublication) {
-            from(components["java"])
-            pom {
-                url.set("https://github.com/oguzdemirbasci/simple-openapi-generator.git")
-            }
-        }
-    }
+//    publications {
+//        register("jar", MavenPublication) {
+//            from(components["java"])
+//            pom {
+//                url.set("https://github.com/oguzdemirbasci/simple-openapi-generator.git")
+//            }
+//        }
+//    }
 }
 
 //jreleaser {
