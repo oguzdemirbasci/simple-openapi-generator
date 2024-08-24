@@ -11,7 +11,7 @@ plugins {
 }
 
 group = 'org.oguzdem.json'
-version = '1.0-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -97,14 +97,11 @@ publishing {
             }
         }
     }
-//    publications {
-//        register("jar", MavenPublication) {
-//            from(components["java"])
-//            pom {
-//                url.set("https://github.com/oguzdemirbasci/simple-openapi-generator.git")
-//            }
-//        }
-//    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 //jreleaser {
