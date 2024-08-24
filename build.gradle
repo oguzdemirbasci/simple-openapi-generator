@@ -10,7 +10,6 @@ plugins {
     alias libs.plugins.jreleaser apply true
 }
 
-group = 'org.oguzdem.json'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
