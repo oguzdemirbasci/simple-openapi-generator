@@ -15,6 +15,7 @@ junit-platform-launcher = "1.10.3"
 mockito = "5.12.0"
 spotbugs-plugin = "6.0.20"
 spotless-plugin = "6.25.0"
+jreleaser-plugin = "1.13.1"
 
 [libraries]
 google-auto-service = { group = "com.google.auto.service", name = "auto-service", version.ref = "google-auto-service" }
@@ -44,3 +45,4 @@ mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mo
 [plugins]
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
+jreleaser = { id = "org.jreleaser", version.ref = "jreleaser-plugin" }
