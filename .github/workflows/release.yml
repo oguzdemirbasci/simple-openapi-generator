@@ -32,24 +32,7 @@ jobs:
       - name: Publish package to local staging directory
         run: ./gradlew :publish
 
-      - name: Set Release Version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=${{ github.event.inputs.version }}
-
-      - name: Release to Maven Central
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
-        run: |
-          export GPG_TTY=$(tty)
-          git config user.name "${{ github.event.head_commit.committer.name }}"
-          git config user.email "${{ github.event.head_commit.committer.email }}"
-          mvn -B --file pom.xml release:prepare release:perform
-
-      # Create a release
-
-      - name: Run JReleaser
-        uses: jreleaser/release-action@v2
+      - name: Publish package to maven central
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
@@ -58,14 +41,42 @@ jobs:
           JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
           JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run: ./gradlew :jreleaserDeploy -DaltDeploymentRepository=local::file:./build/staging-deploy
 
-      # Persist logs
-
-      - name: JReleaser release output
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jreleaser-release
-          path: |
-            out/jreleaser/trace.log
-            out/jreleaser/output.properties
+#      - name: Set Release Version
+#        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=${{ github.event.inputs.version }}
+#
+#      - name: Release to Maven Central
+#        env:
+#          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+#          MAVEN_CENTRAL_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+#          MAVEN_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+#        run: |
+#          export GPG_TTY=$(tty)
+#          git config user.name "${{ github.event.head_commit.committer.name }}"
+#          git config user.email "${{ github.event.head_commit.committer.email }}"
+#          mvn -B --file pom.xml release:prepare release:perform
+#
+#      # Create a release
+#
+#      - name: Run JReleaser
+#        uses: jreleaser/release-action@v2
+#        env:
+#          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
+#          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+#          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+#          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+#          JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+#          JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+#
+#      # Persist logs
+#
+#      - name: JReleaser release output
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: jreleaser-release
+#          path: |
+#            out/jreleaser/trace.log
+#            out/jreleaser/output.properties
