@@ -23,7 +23,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Publish package to local staging directory
-        run: ./gradlew :publish
+        run: ./gradlew :publish --stacktrace --info
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
