@@ -2,12 +2,13 @@ name: release
 
 on:
   workflow_dispatch:
-    version:
-      description: 'Release version'
-      required: true
-    nextVersion:
-      description: 'Next version after release (-SNAPSHOT will be added automatically)'
-      required: true
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+      nextVersion:
+        description: 'Next version after release (-SNAPSHOT will be added automatically)'
+        required: true
 
 jobs:
   release:
