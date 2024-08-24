@@ -10,7 +10,7 @@ plugins {
     alias libs.plugins.jreleaser apply true
 }
 
-group = 'com.github.oguzdemirbasci'
+group = 'io.github.oguzdemirbasci'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
