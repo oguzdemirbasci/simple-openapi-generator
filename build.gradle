@@ -10,7 +10,7 @@ plugins {
 	alias libs.plugins.gradle.plugin.publish apply true
 }
 
-group = 'com.github.oguzdem'
+group = 'io.github.oguzdem'
 version = project.findProperty("version")
 
 repositories {
