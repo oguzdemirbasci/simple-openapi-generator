@@ -45,4 +45,3 @@ mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mo
 [plugins]
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
-jreleaser = { id = "org.jreleaser", version.ref = "jreleaser-plugin" }

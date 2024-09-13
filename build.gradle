@@ -1,100 +1,106 @@
 import com.github.spotbugs.snom.Confidence
 
 plugins {
-    id 'java-library'
-    id 'pmd'
-    id 'checkstyle'
-    id 'maven-publish'
-    alias libs.plugins.spotbugs apply true
-    alias libs.plugins.spotless apply true
-    alias libs.plugins.jreleaser apply true
+	id 'java-library'
+	id 'pmd'
+	id 'checkstyle'
+	id 'maven-publish'
+	alias libs.plugins.spotbugs apply true
+	alias libs.plugins.spotless apply true
 }
 
 group = 'org.oguzdem'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    implementation libs.lombok
-    annotationProcessor libs.lombok
+	implementation libs.lombok
+	annotationProcessor libs.lombok
 
-    implementation libs.google.auto.service
-    implementation libs.apache.commons.lang3
-    implementation libs.google.guava
-    implementation libs.jackson.core
-    implementation libs.jackson.databind
-    implementation libs.jackson.datatype.jsr310
-    implementation libs.jackson.annotations
-    implementation libs.logback.classic
-    implementation libs.swagger.parser
-    implementation libs.forge.roaster.api
-    implementation libs.hibernate.validator
-    implementation libs.expressly
-    implementation libs.picocli
-    runtimeOnly libs.forge.roaster.jdt
+	implementation libs.google.auto.service
+	implementation libs.apache.commons.lang3
+	implementation libs.google.guava
+	implementation libs.jackson.core
+	implementation libs.jackson.databind
+	implementation libs.jackson.datatype.jsr310
+	implementation libs.jackson.annotations
+	implementation libs.logback.classic
+	implementation libs.swagger.parser
+	implementation libs.forge.roaster.api
+	implementation libs.hibernate.validator
+	implementation libs.expressly
+	implementation libs.picocli
+	runtimeOnly libs.forge.roaster.jdt
 
-    testImplementation libs.junit.jupiter.api
-    testImplementation libs.junit.jupiter.params
-    testImplementation libs.mockito.core
-    testImplementation libs.mockito.junit.jupiter
+	testImplementation libs.junit.jupiter.api
+	testImplementation libs.junit.jupiter.params
+	testImplementation libs.mockito.core
+	testImplementation libs.mockito.junit.jupiter
 
-    testRuntimeOnly libs.junit.platform.launcher
-    testRuntimeOnly libs.junit.jupiter.engine
-    testCompileOnly libs.lombok
-    testAnnotationProcessor libs.lombok
+	testRuntimeOnly libs.junit.platform.launcher
+	testRuntimeOnly libs.junit.jupiter.engine
+	testCompileOnly libs.lombok
+	testAnnotationProcessor libs.lombok
 }
 
 test {
-    useJUnitPlatform()
+	useJUnitPlatform()
 }
 
 pmd {
-    toolVersion = "7.3.0"
-    ruleSetFiles = files("${rootDir}/config/pmd/pmd.xml")
-    consoleOutput = true
+	toolVersion = "7.3.0"
+	ruleSetFiles = files("${rootDir}/config/pmd/pmd.xml")
+	consoleOutput = true
 }
 
 checkstyle {
-    toolVersion = '10.17.0'
-    maxWarnings = 0
-    configFile file("${rootDir}/config/checkstyle/google_checks.xml")
+	toolVersion = '10.17.0'
+	maxWarnings = 0
+	configFile file("${rootDir}/config/checkstyle/google_checks.xml")
 }
 
 spotbugs {
-    includeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-include.xml"))
-    excludeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-exclude.xml"))
-    reportLevel = Confidence.valueOf('DEFAULT')
-    showProgress = true
+	includeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-include.xml"))
+	excludeFilter.set(file("${rootDir}/config/spotbugs/spotbugs-exclude.xml"))
+	reportLevel = Confidence.valueOf('DEFAULT')
+	showProgress = true
 }
 
 spotless {
-    format 'misc', {
-        target '*.gradle', '.gitattributes', '.gitignore'
-        trimTrailingWhitespace()
-        indentWithTabs()
-        endWithNewline()
-    }
+	format 'misc', {
+		target '*.gradle', '.gitattributes', '.gitignore'
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
 
-    java {
-        importOrder()
-        removeUnusedImports()
-        googleJavaFormat()
-        formatAnnotations()
-    }
+	java {
+		importOrder()
+		removeUnusedImports()
+		googleJavaFormat()
+		formatAnnotations()
+	}
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/oguzdemirbasci/simple-openapi-generator")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/oguzdemirbasci/simple-openapi-generator")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
 }
+
+tasks.build.dependsOn spotlessApply
