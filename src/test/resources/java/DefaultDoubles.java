@@ -1,4 +1,4 @@
-package com.github.oguzdem.openapi.generated;
+package io.github.oguzdem.openapi.generated;
 
 import lombok.Value;
 import com.fasterxml.jackson.annotation.JsonProperty;
