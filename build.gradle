@@ -9,8 +9,8 @@ plugins {
 	alias libs.plugins.spotless apply true
 }
 
-group = 'org.oguzdem'
-version = '0.0.2-SNAPSHOT'
+group = 'com.github.oguzdem'
+version = project.findProperty("version")
 
 repositories {
 	mavenCentral()
