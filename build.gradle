@@ -113,7 +113,7 @@ gradlePlugin {
 
 	plugins {
 		greetingsPlugin {
-			id = 'simple-openapi-generator'
+			id = 'com.github.oguzdem.simple-openapi-generator'
 			displayName = 'Simple Openapi Generator'
 			description = 'Simple Openapi Generator Gradle Plugin'
 			tags.set(['openapi', 'schema', 'model', 'pojo', 'generator'])
