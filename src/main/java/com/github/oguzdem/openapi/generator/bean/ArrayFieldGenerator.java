@@ -3,6 +3,9 @@ package com.github.oguzdem.openapi.generator.bean;
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isObject;
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isRef;
 
+import com.github.oguzdem.openapi.generator.Config;
+import com.github.oguzdem.openapi.generator.TypeGenerator;
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import io.swagger.util.PrimitiveType;
@@ -17,9 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.Config;
-import com.github.oguzdem.openapi.generator.TypeGenerator;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the array field. The field is a list or set of objects. The field is

@@ -5,6 +5,9 @@ import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.is
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.oguzdem.openapi.generator.Config;
+import com.github.oguzdem.openapi.generator.TypeGenerator;
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import com.google.common.collect.ImmutableMap;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -15,9 +18,6 @@ import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.Config;
-import com.github.oguzdem.openapi.generator.TypeGenerator;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the additional properties field. The additional properties field is a map of

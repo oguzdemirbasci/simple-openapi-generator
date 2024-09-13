@@ -6,6 +6,9 @@ import static io.swagger.v3.parser.util.SchemaTypeUtil.STRING_TYPE;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.github.oguzdem.openapi.generator.PojoGenerator;
+import com.github.oguzdem.openapi.generator.TypeGenerator;
+import com.github.oguzdem.openapi.generator.bean.FieldGeneratorFactory;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 import java.util.ArrayList;
@@ -26,9 +29,6 @@ import org.jboss.forge.roaster.model.source.JavaInterfaceSource;
 import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.PojoGenerator;
-import com.github.oguzdem.openapi.generator.TypeGenerator;
-import com.github.oguzdem.openapi.generator.bean.FieldGeneratorFactory;
 
 /**
  * Utility class for java class source operations.

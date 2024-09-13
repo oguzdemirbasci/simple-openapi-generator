@@ -2,6 +2,7 @@ package com.github.oguzdem.openapi.generator.bean;
 
 import static io.swagger.v3.parser.util.SchemaTypeUtil.EMAIL_FORMAT;
 
+import com.github.oguzdem.openapi.generator.Config;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -12,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.Config;
 
 /**
  * Field generator for the string field. The field is a string object. The field is added to the

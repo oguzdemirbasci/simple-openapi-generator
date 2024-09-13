@@ -6,6 +6,7 @@ import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.is
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import com.google.common.base.Strings;
 import io.swagger.util.PrimitiveType;
 import io.swagger.v3.oas.models.Components;
@@ -27,7 +28,6 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.JavaEnumSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Base class for field generators. Field generators are used to generate fields for the given

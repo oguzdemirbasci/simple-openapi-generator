@@ -1,12 +1,12 @@
 package com.github.oguzdem.openapi.generator.bean;
 
+import com.github.oguzdem.openapi.generator.TypeGenerator;
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.TypeGenerator;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Field generator for the enum field. The field is an enum const. The field is added to the

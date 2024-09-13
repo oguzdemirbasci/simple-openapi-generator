@@ -1,7 +1,7 @@
 package com.github.oguzdem.openapi.generator.constraints;
 
-import java.math.BigDecimal;
 import com.github.oguzdem.openapi.generator.utils.NumberComparatorHelper;
+import java.math.BigDecimal;
 
 /**
  * @author Oguz Demirbasci

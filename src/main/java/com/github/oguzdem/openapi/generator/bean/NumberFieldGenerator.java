@@ -1,5 +1,7 @@
 package com.github.oguzdem.openapi.generator.bean;
 
+import com.github.oguzdem.openapi.generator.Config;
+import com.github.oguzdem.openapi.generator.constraints.MultipleOf;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 import jakarta.validation.constraints.Max;
@@ -10,8 +12,6 @@ import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.PropertySource;
-import com.github.oguzdem.openapi.generator.Config;
-import com.github.oguzdem.openapi.generator.constraints.MultipleOf;
 
 /**
  * Abstract class for the number field generator. The field is a number object. The field is added

@@ -1,4 +1,4 @@
-package org.oguzdem.openapi.generated;
+package com.github.oguzdem.openapi.generated;
 
 import lombok.Value;
 import java.time.OffsetDateTime;

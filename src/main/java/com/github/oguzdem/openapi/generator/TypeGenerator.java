@@ -9,6 +9,7 @@ import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.is
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isOneOf;
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isRef;
 
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import com.google.common.collect.ImmutableList;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
@@ -19,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Type generator class that generates Java types from JSON schemas.
