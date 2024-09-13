@@ -106,20 +106,20 @@ publishing {
 	}
 }
 
-//gradlePlugin {
-//	website = 'https://github.com/oguzdemirbasci/simple-openapi-generator'
-//	vcsUrl = 'https://github.com/oguzdemirbasci/simple-openapi-generator'
-//
-//	plugins {
-//		simpleOpenapiGeneratorPlugin {
-//			id = 'com.github.oguzdem.simple-openapi-generator'
-//			displayName = 'Simple Openapi Generator'
-//			description = 'Simple Openapi Generator Gradle Plugin'
-//			tags.set(['openapi', 'schema', 'model', 'pojo', 'generator'])
-//			implementationClass = 'com.github.oguzdem.openapi.generator.gradleplugin.GenerateOpenApiModelsPlugin'
-//		}
-//	}
-//}
+gradlePlugin {
+	website = 'https://github.com/oguzdemirbasci/simple-openapi-generator'
+	vcsUrl = 'https://github.com/oguzdemirbasci/simple-openapi-generator.git'
+
+	plugins {
+		simpleOpenapiGeneratorPlugin {
+			id = 'com.github.oguzdem.simple-openapi-generator'
+			displayName = 'Simple Openapi Generator'
+			description = 'Simple Openapi Generator Gradle Plugin'
+			tags.set(['openapi', 'schema', 'model', 'pojo', 'generator'])
+			implementationClass = 'com.github.oguzdem.openapi.generator.gradleplugin.GenerateOpenApiModelsPlugin'
+		}
+	}
+}
 
 tasks.withType(Javadoc).configureEach {
 	options.addStringOption('Xdoclint:none', '-quiet')

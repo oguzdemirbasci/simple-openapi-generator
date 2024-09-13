@@ -34,7 +34,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Publish Library Package to Github Packages
-        run: ./gradlew :publish -Pversion="${{ github.event.inputs.version }}"
+        run: ./gradlew publishGprPublicationToGitHubPackagesRepository -Pversion="${{ github.event.inputs.version }}"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
