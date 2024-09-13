@@ -5,8 +5,10 @@ import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fi
 import static com.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.github.oguzdem.openapi.generator.utils.NameUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -25,7 +27,6 @@ import org.jboss.forge.roaster.model.source.JavaEnumSource;
 import org.jboss.forge.roaster.model.source.JavaInterfaceSource;
 import org.jboss.forge.roaster.model.source.JavaSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
-import com.github.oguzdem.openapi.generator.utils.NameUtils;
 
 /**
  * Pojo generator class that generates Java classes from JSON schemas. It uses Roaster library to
@@ -84,6 +85,11 @@ public class PojoGenerator {
    * #JAVA_SOURCE_MAP} map.
    */
   public static void writeJavaSources() {
+    File theDir = new File(Config.getFullOutputPath());
+    if (!theDir.exists()) {
+      theDir.mkdirs();
+    }
+
     JAVA_SOURCE_MAP.forEach(
         (name, javaSource) -> {
           try (PrintWriter out =
