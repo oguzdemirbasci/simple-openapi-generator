@@ -97,34 +97,4 @@ publishing {
             }
         }
     }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
-    }
 }
-
-//jreleaser {
-//	project {
-//		authors = ['Oguz Demirbasci']
-//		license = 'Apache-2.0'
-//		inceptionYear = '2024'
-//		copyright = "Oguz Demirbasci"
-//		description = 'Simple Openapi Generator'
-//	}
-//    signing {
-//        active = 'ALWAYS'
-//        armored = true
-//    }
-//    deploy {
-//        maven {
-//            mavenCentral {
-//                sonatype {
-//                    active = 'ALWAYS'
-//                    url = 'https://central.sonatype.com/api/v1/publisher'
-//                    stagingRepository('target/staging-deploy')
-//                }
-//            }
-//        }
-//    }
-//}
