@@ -83,6 +83,12 @@ public class NameUtils {
   public static String toJavaTypeNameFormat(@NonNull String input) {
     String fieldNameFormatted = toJavaFieldNameFormat(input);
 
+    if (StringUtils.isBlank(fieldNameFormatted)) {
+      return fieldNameFormatted;
+    }
+    if (fieldNameFormatted.startsWith("_")) {
+      fieldNameFormatted = fieldNameFormatted.substring(1);
+    }
     return StringUtils.isNotBlank(fieldNameFormatted)
         ? fieldNameFormatted.substring(0, 1).toUpperCase() + fieldNameFormatted.substring(1)
         : fieldNameFormatted;

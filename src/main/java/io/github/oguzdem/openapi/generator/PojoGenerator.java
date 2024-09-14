@@ -1,21 +1,20 @@
 package io.github.oguzdem.openapi.generator;
 
-import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
-import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillInterfaceSourceBySchema;
-import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import io.github.oguzdem.openapi.generator.utils.NameUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import lombok.Builder;
+import lombok.Generated;
 import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +52,8 @@ public class PojoGenerator {
    * @param components the components object that contains the schemas
    * @return the generated class as a string
    */
-  public static <T> String generate(String name, @NonNull Schema<T> schema, Components components) {
+  public static <T> JavaSource<?> generate(
+      String name, @NonNull Schema<T> schema, Components components) {
     String className = "";
     if (StringUtils.isBlank(name)) {
       log.error("no type is generated for empty name");
@@ -66,6 +66,8 @@ public class PojoGenerator {
       return generateEnum(className, schema);
     } else if (Objects.nonNull(schema.getOneOf())) {
       return generateInterface(className, schema, components);
+    } else if (isArray(schema)) {
+      return generateArrayClass(className, schema, components);
     }
     return generateClass(className, schema, components);
   }
@@ -101,14 +103,34 @@ public class PojoGenerator {
         });
   }
 
-  private static <T> String generateClass(
+  private static <T> JavaSource<JavaClassSource> generateArrayClass(
+      String name, @NonNull Schema<T> schema, Components components) {
+    if (!isArray(schema)) {
+      return null;
+    }
+
+    JavaSource<?> subType = generate(name + "_Item", schema.getItems(), components);
+
+    JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
+    javaClass.setSuperType("ArrayList<%s>".formatted(subType.getName()));
+    addJavadoc(schema, javaClass);
+    addPackageInfo(name, schema, javaClass);
+    JAVA_SOURCE_MAP.put(name, javaClass);
+    javaClass.addImport(ArrayList.class);
+    javaClass.addAnnotation(Generated.class);
+    return javaClass;
+  }
+
+  private static <T> JavaSource<JavaClassSource> generateClass(
       String name, @NonNull Schema<T> schema, Components components) {
     JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
+    addJavadoc(schema, javaClass);
     addPackageInfo(name, schema, javaClass);
     fillJavaClassSourceBySchema(javaClass, schema, components);
     adjustConstructorByDefaultParams(javaClass, schema);
     JAVA_SOURCE_MAP.put(name, javaClass);
-    return javaClass.toString();
+    javaClass.addAnnotation(Generated.class);
+    return javaClass;
   }
 
   private static void adjustConstructorByDefaultParams(
@@ -138,24 +160,29 @@ public class PojoGenerator {
     }
   }
 
-  private static String generateEnum(String name, Schema<?> schema) {
+  private static JavaSource<JavaEnumSource> generateEnum(String name, Schema<?> schema) {
     JavaEnumSource javaEnum = Roaster.create(JavaEnumSource.class);
+    addJavadoc(schema, javaEnum);
     addPackageInfo(name, schema, javaEnum);
     fillEnumSourceBySchema(javaEnum, schema);
     JAVA_SOURCE_MAP.put(name, javaEnum);
-    return javaEnum.toString();
+    javaEnum.addAnnotation(Generated.class);
+    return javaEnum;
   }
 
-  private static String generateInterface(String name, Schema<?> schema, Components components) {
+  private static JavaSource<?> generateInterface(
+      String name, Schema<?> schema, Components components) {
     if (JAVA_SOURCE_MAP.containsKey(name)) {
-      return JAVA_SOURCE_MAP.get(name).toString();
+      return JAVA_SOURCE_MAP.get(name);
     }
     JavaInterfaceSource javaInterface = Roaster.create(JavaInterfaceSource.class);
+    addJavadoc(schema, javaInterface);
     addPackageInfo(name, schema, javaInterface);
     javaInterface.addAnnotation(JsonTypeInfo.class).setEnumValue("use", JsonTypeInfo.Id.DEDUCTION);
     JAVA_SOURCE_MAP.put(name, javaInterface);
     fillInterfaceSourceBySchema(javaInterface, schema, components);
-    return javaInterface.toString();
+    javaInterface.addAnnotation(Generated.class);
+    return javaInterface;
   }
 
   private static void addPackageInfo(String name, Schema<?> schema, JavaSource<?> javaSource) {
@@ -163,5 +190,54 @@ public class PojoGenerator {
       name = schema.getTitle();
     }
     javaSource.setPackage(Config.getPackageName()).setName(name);
+  }
+
+  private static void addJavadoc(Schema<?> schema, JavaSource<?> javaSource) {
+    if (ObjectUtils.isEmpty(schema)) {
+      return;
+    }
+    StringBuilder javadocBuilder = new StringBuilder();
+    if (StringUtils.isNotBlank(schema.getDescription())) {
+      javadocBuilder.append("Description: ");
+      javadocBuilder.append(schema.getDescription());
+      if (!schema.getDescription().endsWith(".")) {
+        javadocBuilder.append(".");
+      }
+    }
+    if (ObjectUtils.isNotEmpty(schema.getExternalDocs())) {
+      if (ObjectUtils.isEmpty(schema.getExternalDocs().getUrl())
+          && ObjectUtils.isNotEmpty(schema.getExternalDocs().getDescription())) {
+        if (!javadocBuilder.isEmpty()) {
+          javadocBuilder.append("\n<p>");
+        }
+        javadocBuilder.append("Refer to: %s".formatted(schema.getExternalDocs().getDescription()));
+      } else if (ObjectUtils.isNotEmpty(schema.getExternalDocs().getUrl())) {
+        String label = schema.getExternalDocs().getUrl();
+        if (ObjectUtils.isNotEmpty(schema.getExternalDocs().getDescription())) {
+          label = schema.getExternalDocs().getDescription();
+        }
+        if (!javadocBuilder.isEmpty()) {
+          javadocBuilder.append("\n<p>");
+        }
+        javadocBuilder.append(
+            "Refer to: <a href=\"%s\">%s</a>".formatted(schema.getExternalDocs().getUrl(), label));
+      }
+    }
+    if (ObjectUtils.isNotEmpty(schema.getExample())) {
+      if (!javadocBuilder.isEmpty()) {
+        javadocBuilder.append("\n<p>");
+      }
+      javadocBuilder.append("Example: \n<pre>");
+      ObjectWriter objectWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
+      try {
+        javadocBuilder.append(
+            "\n{@code\n %s\n} ".formatted(objectWriter.writeValueAsString(schema.getExample())));
+      } catch (JsonProcessingException e) {
+        javadocBuilder.append("\n %s".formatted(schema.getExample()));
+      }
+
+      javadocBuilder.append("\n</pre>");
+    }
+    javaSource.getJavaDoc().setFullText(javadocBuilder.toString());
   }
 }

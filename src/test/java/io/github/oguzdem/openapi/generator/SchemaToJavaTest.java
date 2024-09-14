@@ -677,7 +677,8 @@ public class SchemaToJavaTest {
     assertNotNull(expectedClass);
     String expectedFile = Roaster.format(expectedClass.toUnformattedString());
     String generatedFile =
-        Roaster.format(PojoGenerator.generate(schema.getTitle(), schema, new Components()));
+        Roaster.format(
+            PojoGenerator.generate(schema.getTitle(), schema, new Components()).toString());
     assertNotNull(expectedFile);
     assertNotNull(generatedFile);
     assertEquals(

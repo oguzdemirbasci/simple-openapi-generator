@@ -1,4 +1,5 @@
 [versions]
+javax-ws-rs = "2.1.1"
 google-auto-service = "1.1.1"
 google-guava = "33.3.0-jre"
 apache-commons-lang3 = "3.16.0"
@@ -18,6 +19,7 @@ spotless-plugin = "6.25.0"
 plugin-publish = "1.2.1"
 
 [libraries]
+javax-ws-rs-api = { group = 'javax.ws.rs', name = 'javax.ws.rs-api', version.ref = "javax-ws-rs" }
 google-auto-service = { group = "com.google.auto.service", name = "auto-service", version.ref = "google-auto-service" }
 google-guava = { group = "com.google.guava", name = "guava", version.ref = "google-guava" }
 apache-commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apache-commons-lang3" }
