@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
+import joptsimple.internal.Strings;
 import lombok.Builder;
 import lombok.Generated;
 import lombok.NonNull;
@@ -109,10 +110,10 @@ public class PojoGenerator {
       return null;
     }
 
-    JavaSource<?> subType = generate(name + "_Item", schema.getItems(), components);
+    String subType = TypeGenerator.getOrGenerateType(Strings.EMPTY, schema.getItems(), components);
 
     JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
-    javaClass.setSuperType("ArrayList<%s>".formatted(subType.getName()));
+    javaClass.setSuperType("ArrayList<%s>".formatted(subType));
     addJavadoc(schema, javaClass);
     addPackageInfo(name, schema, javaClass);
     JAVA_SOURCE_MAP.put(name, javaClass);

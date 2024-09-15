@@ -48,7 +48,7 @@ public class ModelGenerator {
                                           .forEach(
                                               (mediaTypeString, mediaType) -> {
                                                 if (mediaTypeString.contains("json")) {
-                                                  PojoGenerator.generate(
+                                                  TypeGenerator.getOrGenerateType(
                                                       createClassName(
                                                           pathString,
                                                           httpMethod,
