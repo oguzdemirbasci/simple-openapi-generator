@@ -1,6 +1,5 @@
 .gradle
 build/
-.git/*
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
