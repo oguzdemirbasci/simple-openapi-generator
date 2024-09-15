@@ -7,8 +7,10 @@ import lombok.Builder;
 import java.util.Objects;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Pattern;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultStrings {
 
 	@JsonProperty("simpleString")

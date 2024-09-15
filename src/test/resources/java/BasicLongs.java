@@ -6,10 +6,12 @@ import lombok.Builder;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import lombok.extern.jackson.Jacksonized;
+import lombok.Generated;
 
 @Value
 @Builder
 @Jacksonized
+@Generated
 public class BasicLongs {
 
 	@JsonProperty("simpleLong")

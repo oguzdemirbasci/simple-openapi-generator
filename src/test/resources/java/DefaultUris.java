@@ -5,8 +5,10 @@ import java.net.URI;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import java.util.Objects;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultUris {
 
 	@JsonProperty("simpleUris")

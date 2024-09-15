@@ -6,8 +6,10 @@ import lombok.Builder;
 import java.util.Objects;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultIntegers {
 
 	@JsonProperty("simpleInt")

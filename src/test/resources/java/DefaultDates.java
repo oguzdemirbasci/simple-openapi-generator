@@ -9,8 +9,10 @@ import lombok.Builder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultDates {
 
 	@JsonProperty("simpleDate")

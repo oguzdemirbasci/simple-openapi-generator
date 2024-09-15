@@ -69,9 +69,9 @@ class NameUtilsTest {
         Arguments.of("TEST_Value", "TestValue"),
         Arguments.of("123_test", "$123Test"),
         Arguments.of("123_test____value", "$123TestValue"),
-        Arguments.of("_TEST_VALUE", "_TestValue"),
-        Arguments.of("_TestValue", "_TestValue"),
-        Arguments.of("_____testValue", "_TestValue"));
+        Arguments.of("_TEST_VALUE", "TestValue"),
+        Arguments.of("_TestValue", "TestValue"),
+        Arguments.of("_____testValue", "TestValue"));
   }
 
   public static Stream<Arguments> toJsonSubTypesListTestArgProvider() {

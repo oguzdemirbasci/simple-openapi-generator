@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.extern.jackson.Jacksonized;
+import lombok.Generated;
 
 @Value
 @Builder
 @Jacksonized
+@Generated
 public class BasicAdditionalProps {
 
 	@JsonProperty("additionalProperties")

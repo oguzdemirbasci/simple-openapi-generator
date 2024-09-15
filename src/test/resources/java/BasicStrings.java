@@ -7,10 +7,12 @@ import lombok.Builder;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Pattern;
 import lombok.extern.jackson.Jacksonized;
+import lombok.Generated;
 
 @Value
 @Builder
 @Jacksonized
+@Generated
 public class BasicStrings {
 
 	@JsonProperty("simpleString")

@@ -1,6 +1,9 @@
 package io.github.oguzdem.openapi.generator;
 
-import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.*;
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillEnumSourceBySchema;
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillInterfaceSourceBySchema;
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.fillJavaClassSourceBySchema;
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isArray;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,7 +15,11 @@ import io.swagger.v3.oas.models.media.Schema;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import joptsimple.internal.Strings;
 import lombok.Builder;
 import lombok.Generated;
@@ -199,8 +206,7 @@ public class PojoGenerator {
     }
     StringBuilder javadocBuilder = new StringBuilder();
     if (StringUtils.isNotBlank(schema.getDescription())) {
-      javadocBuilder.append("Description: ");
-      javadocBuilder.append(schema.getDescription());
+      javadocBuilder.append("Description: ").append(schema.getDescription());
       if (!schema.getDescription().endsWith(".")) {
         javadocBuilder.append(".");
       }
@@ -239,6 +245,8 @@ public class PojoGenerator {
 
       javadocBuilder.append("\n</pre>");
     }
-    javaSource.getJavaDoc().setFullText(javadocBuilder.toString());
+    if (!javadocBuilder.isEmpty()) {
+      javaSource.getJavaDoc().setFullText(javadocBuilder.toString());
+    }
   }
 }

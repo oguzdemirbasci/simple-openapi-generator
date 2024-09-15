@@ -4,9 +4,9 @@ import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.util.Map;
 import java.util.Objects;
 import javax.ws.rs.core.Response.Status;
 import lombok.NonNull;
@@ -15,6 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class ModelGenerator {
+  private static final String DESERIALIZABLE_ERROR_TEMP =
+      "Media Type is not json deserializable. Skipping... [ path: {}, method: {}, responseType: {}, mediaType: {} ]";
+
   public static void generate(String inputFilePath) {
     OpenAPIParser parser = new OpenAPIParser();
     SwaggerParseResult result = parser.readLocation(inputFilePath, null, null);
@@ -30,7 +33,7 @@ public class ModelGenerator {
     }
 
     if (Objects.nonNull(openapi.getPaths())) {
-      Paths paths = openapi.getPaths();
+      Map<String, PathItem> paths = openapi.getPaths();
       paths.forEach(
           (pathString, pathItem) ->
               pathItem
@@ -63,7 +66,7 @@ public class ModelGenerator {
                                                           : new Components());
                                                 } else {
                                                   log.debug(
-                                                      "Media Type is not json deserializable. Skipping... [ path: {}, method: {}, responseType: {}, mediaType: {} ]",
+                                                      DESERIALIZABLE_ERROR_TEMP,
                                                       pathString,
                                                       httpMethod.toString(),
                                                       responseType,

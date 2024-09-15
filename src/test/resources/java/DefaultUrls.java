@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import java.net.MalformedURLException;
 import java.util.Objects;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultUrls {
 
 	@JsonProperty("defaultUrl")

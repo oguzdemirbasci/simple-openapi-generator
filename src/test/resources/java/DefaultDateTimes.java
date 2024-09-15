@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import lombok.Builder;
 import java.util.Objects;
+import lombok.Generated;
 
 @Value
+@Generated
 public class DefaultDateTimes {
 
 	@JsonProperty("simpleDateTime")
