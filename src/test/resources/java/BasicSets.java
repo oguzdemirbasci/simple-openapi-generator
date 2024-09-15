@@ -26,7 +26,7 @@ public class BasicSets {
 	ImmutableList<ImmutableSet<String>> arrayOfSets;
 	@Singular("setOfObjects")
 	@JsonProperty("setOfObjects")
-	ImmutableSet<ArrayOfObjects> setOfObjects;
+	ImmutableSet<SetOfObjects> setOfObjects;
 	@Singular("setOfArrays")
 	@JsonProperty("setOfArrays")
 	ImmutableSet<Object> setOfArrays;
