@@ -7,6 +7,6 @@ public class GenerateSpecTest {
 
   @Test
   void testModelGenerate() {
-    ModelGenerator.generate("src/test/resources/specs/basic.yaml");
+    ModelGenerator.generate("src/test/resources/specs/basic-ref.yaml");
   }
 }

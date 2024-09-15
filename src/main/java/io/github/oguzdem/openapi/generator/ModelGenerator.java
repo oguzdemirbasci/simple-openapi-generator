@@ -1,5 +1,7 @@
 package io.github.oguzdem.openapi.generator;
 
+import static io.github.oguzdem.openapi.generator.utils.JavaClassSourceUtils.isRef;
+
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -51,19 +53,35 @@ public class ModelGenerator {
                                           .forEach(
                                               (mediaTypeString, mediaType) -> {
                                                 if (mediaTypeString.contains("json")) {
-                                                  TypeGenerator.getOrGenerateType(
-                                                      createClassName(
-                                                          pathString,
-                                                          httpMethod,
-                                                          responseType,
-                                                          operation.getOperationId(),
-                                                          mediaType.getSchema()),
-                                                      Objects.nonNull(mediaType.getSchema())
-                                                          ? (Schema<?>) mediaType.getSchema()
-                                                          : new Schema<>(),
-                                                      Objects.nonNull(openapi.getComponents())
-                                                          ? openapi.getComponents()
-                                                          : new Components());
+                                                  if (isRef(mediaType.getSchema())) {
+                                                    TypeGenerator.getOrGenerateType(
+                                                        createClassName(
+                                                            pathString,
+                                                            httpMethod,
+                                                            responseType,
+                                                            operation.getOperationId(),
+                                                            mediaType.getSchema()),
+                                                        Objects.nonNull(mediaType.getSchema())
+                                                            ? (Schema<?>) mediaType.getSchema()
+                                                            : new Schema<>(),
+                                                        Objects.nonNull(openapi.getComponents())
+                                                            ? openapi.getComponents()
+                                                            : new Components());
+                                                  } else {
+                                                    PojoGenerator.generate(
+                                                        createClassName(
+                                                            pathString,
+                                                            httpMethod,
+                                                            responseType,
+                                                            operation.getOperationId(),
+                                                            mediaType.getSchema()),
+                                                        Objects.nonNull(mediaType.getSchema())
+                                                            ? (Schema<?>) mediaType.getSchema()
+                                                            : new Schema<>(),
+                                                        Objects.nonNull(openapi.getComponents())
+                                                            ? openapi.getComponents()
+                                                            : new Components());
+                                                  }
                                                 } else {
                                                   log.debug(
                                                       DESERIALIZABLE_ERROR_TEMP,

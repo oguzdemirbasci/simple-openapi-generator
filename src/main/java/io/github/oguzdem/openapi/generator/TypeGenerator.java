@@ -96,7 +96,7 @@ public class TypeGenerator {
         && GENERATED_NAME_TO_SCHEMA.get(name).equals(schema)) {
       return NameUtils.toJavaTypeNameFormat(name);
     }
-    if (SCHEMA_TO_GENERATED_NAME.containsKey(schema)) {
+    if (SCHEMA_TO_GENERATED_NAME.containsKey(schema) && StringUtils.isBlank(name)) {
       log.info("Schema is already generated: {}", SCHEMA_TO_GENERATED_NAME.get(schema));
       return NameUtils.toJavaTypeNameFormat(SCHEMA_TO_GENERATED_NAME.get(schema));
     }

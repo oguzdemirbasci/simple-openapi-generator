@@ -135,7 +135,7 @@ paths:
                 type: object
                 description: Not Found Error
                 properties:
-                  code:
+                  codes:
                     type: integer
                   details:
                     type: string
@@ -279,16 +279,4 @@ paths:
                   details:
                     type: string
                     description: Error details
-    delete:
-      description: ""
-      parameters: []
-      responses:
-        "200":
-          description: "OK"
-    patch:
-      description: ""
-      parameters: []
-      responses:
-        "200":
-          description: "OK"
 
